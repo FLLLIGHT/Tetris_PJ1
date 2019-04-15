@@ -1,0 +1,62 @@
+public boolean[][] randomCells()
+    {
+
+
+        while(true)
+        {
+            Random ran = new Random();
+            boolean usable = true;
+            boolean allEmpty = true;
+            rows = getRandomRows();
+            columns = getRandomColumns();
+            cells = new boolean[rows][columns];
+            bigCells = new boolean[rows+2][columns+2];
+
+
+
+            for(int i=0;i<=rows+1;i++)
+            {
+                for(int j=0;j<=columns+1;j++)
+                {
+                    bigCells[i][j] = false;
+                }
+            }
+            for(int i=1;i<=rows;i++){
+                for(int j=1;j<=columns;j++){
+                    if(ran.nextBoolean()){
+                        bigCells[i][j] = true;
+                    }
+                }
+            }
+            for(int i=1;i<=rows;i++){
+                for(int j=1;j<=columns;j++){
+                    if((bigCells[i][j])&&((!(bigCells[i-1][j]))&&(!(bigCells[i+1][j]))&&(!(bigCells[i][j-1]))&&(!(bigCells[i][j+1]))))
+                    {
+                        usable = false;
+                    }
+                    if(bigCells[i][j])
+                    {
+                        allEmpty = false;
+                    }
+                }
+            }
+
+            if((usable)&&(!allEmpty))
+            {
+                for(int i=1;i<=rows;i++){
+                    for(int j=1;j<=columns;j++){
+                        if(bigCells[i][j])
+                        {
+                            cells[i-1][j-1] = true;
+                        }
+                        else
+                        {
+                            cells[i-1][j-1] = false;
+                        }
+                    }
+                }
+                return cells;
+            }
+
+        }
+    }
